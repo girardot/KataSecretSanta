@@ -11,7 +11,7 @@ public class ResolverTest {
     @Test
     public void test_check() throws Exception {
         Person from = new Person("toto toto toto@toto.com");
-        Person to = new Person("toto toto  toto@toto.com");
+        Person to = new Person("toto toto toto@toto.com");
         Association association = new Association(from, to);
 
         Resolver resolver = new Resolver(0L);
@@ -21,7 +21,7 @@ public class ResolverTest {
 
     @Test
     public void test_check_same_family() throws Exception {
-        Person from = new Person("toto toto  toto@toto.com");
+        Person from = new Person("toto toto toto@toto.com");
         Person to = new Person("titi toto tito@toto.com");
         Association association = new Association(from, to);
 
@@ -66,7 +66,7 @@ public class ResolverTest {
         Person p5 = new Person("Jese Pinkman jese.pikman@gmail.com");
         Person p6 = new Person("Henri Schrader henri.schrader@dea.us");
         Person p7 = new Person("Marie Schrader marieshrader723@yahoo.com");
-        List<Association> shouldBe = Arrays.asList(new Association(p2, p6), new Association(p1, p5), new Association(p3, p7), new Association(p4, p3), new Association(p5, p1),new Association(p6, p4), new Association(p7, p2));
+        List<Association> shouldBe = Arrays.asList(new Association(p5, p3), new Association(p3, p2), new Association(p2, p4), new Association(p4, p7), new Association(p7, p1),new Association(p1, p6), new Association(p6, p5));
 
         List<Person> persons = Arrays.asList(p2, p1, p3, p4, p5, p6, p7);
 

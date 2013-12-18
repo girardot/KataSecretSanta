@@ -11,12 +11,8 @@ public class Association {
         this.to = to;
     }
 
-    public Person getFrom() {
-        return from;
-    }
-
-    public Person getTo() {
-        return to;
+    public boolean valid() {
+        return !from.equals(to);
     }
 
     @Override

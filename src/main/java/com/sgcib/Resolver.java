@@ -1,25 +1,24 @@
 package com.sgcib;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class Resolver {
 
-    private long seed ;
+    private Random randomGen;
 
     public Resolver(long seed) {
-        this.seed = seed;
+        randomGen = new Random(seed);
     }
 
     public List<Association> resolve(List<Person> giftPerson) {
 
-        ArrayList<Person> giftReceive = new ArrayList<Person>(giftPerson);
-
         boolean check;
         List<Association> compute;
         do {
-            compute = compute(giftPerson, giftReceive);
+            compute = compute(giftPerson);
             check = check(compute);
 
         } while (!check);
@@ -27,27 +26,30 @@ public class Resolver {
         return compute;
     }
 
-    private List<Association> compute(List<Person> giftPerson, List<Person> giftReceive) {
-
+    private List<Association> map(List<Person> giftPerson) {
         List<Association> associations = new ArrayList<Association>();
 
-        List<Person> duplicates = new ArrayList<Person>(giftReceive);
+        Person lastPerson = giftPerson.get(giftPerson.size() - 1);
 
-        for (Person from : giftPerson) {
-            Random randomGen = new Random(seed);
-            int random = randomGen.nextInt(duplicates.size())  ;
-            //int random = (int) (Math.random() * (duplicates.size()));
-            Person to = duplicates.remove(random);
-
-            associations.add(new Association(from, to));
+        for (Person person : giftPerson) {
+            associations.add(new Association(lastPerson, person));
+            lastPerson = person;
         }
 
         return associations;
     }
 
+    private List<Association> compute(List<Person> giftPerson) {
+
+        int random = randomGen.nextInt(giftPerson.size() - 1);
+        Collections.swap(giftPerson, random, random + 1);
+
+        return map(giftPerson);
+    }
+
     public boolean check(List<Association> associations) {
         for (Association association : associations) {
-            if (association.getFrom().equals(association.getTo())) {
+            if (!association.valid()) {
                 return false;
             }
         }

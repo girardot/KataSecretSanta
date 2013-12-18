@@ -13,14 +13,6 @@ public class Person {
         this.email = split[2];
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
